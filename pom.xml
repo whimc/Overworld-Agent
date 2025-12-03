@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.whimc</groupId>
     <artifactId>WHIMC-OverworldAgent</artifactId>
-    <version>2.1.0</version>
+    <version>2.2.1</version>
     <name>WHIMC Overworld Agent</name>
     <description>Defines overworld agent traits</description>
 
@@ -14,12 +14,14 @@
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <releases><enabled>false</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
         </repository>
         <repository>
             <id>playpro-repo</id>
             <url>https://maven.playpro.com</url>
         </repository>
-        <!-- Maven repo for Holographic Displays -->
+        <!-- Maven repo for Holographic Displays and Quests -->
         <repository>
             <id>codemc-repo</id>
             <url>https://repo.codemc.io/repository/maven-public/</url>
@@ -32,11 +34,6 @@
         <repository>
             <id>dmulloy2-repo</id>
             <url>https://repo.dmulloy2.net/repository/public/</url>
-        </repository>
-        <!-- Maven repo for Quests -->
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
         </repository>
         <!--Maven repo for world guard -->
         <repository>
@@ -68,7 +65,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.13.2-R0.1-SNAPSHOT</version>
+            <version>1.18.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -98,9 +95,9 @@
         </dependency>
         <!-- Add ProtocolLib to the build-->
         <dependency>
-            <groupId>com.comphenix.protocol</groupId>
+            <groupId>net.dmulloy2</groupId>
             <artifactId>ProtocolLib</artifactId>
-            <version>4.8.0</version>
+            <version>5.3.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -108,14 +105,14 @@
             <groupId>WHIMC-ScienceTools</groupId>
             <scope>system</scope>
             <version>2.4.4</version>
-            <systemPath>${pom.basedir}/lib/WHIMC-ScienceTools-2.4.4.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/WHIMC-ScienceTools-2.4.11.jar</systemPath>
         </dependency>
         <dependency>
             <artifactId>edu.whimc</artifactId>
             <groupId>WHIMC-Observations</groupId>
             <scope>system</scope>
-            <version>2.5.0</version>
-            <systemPath>${pom.basedir}/lib/WHIMC-Observations-2.5.0.jar</systemPath>
+            <version>2.6.3</version>
+            <systemPath>${pom.basedir}/lib/WHIMC-Observations-2.6.3.jar</systemPath>
         </dependency>
         <dependency>
             <artifactId>edu.whimc</artifactId>
@@ -133,9 +130,9 @@
         </dependency>
         <!-- Add Quests to the build -->
         <dependency>
-            <groupId>com.github.PikaMug.Quests</groupId>
-            <artifactId>quests-main</artifactId>
-            <version>4.0.8</version>
+            <groupId>me.pikamug.quests</groupId>
+            <artifactId>quests-api</artifactId>
+            <version>5.0.0-rc.3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
