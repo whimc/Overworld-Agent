@@ -3,6 +3,8 @@ package edu.whimc.overworld_agent.commands.subcommands;
 import edu.whimc.overworld_agent.OverworldAgent;
 import edu.whimc.overworld_agent.commands.AbstractSubCommand;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.npc.NPCRegistry;
+import net.citizensnpcs.api.CitizensAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -35,26 +37,42 @@ public class DestroyAgentsCommand extends AbstractSubCommand {
             return true;
         }
         String playerName = args[0];
-        if (playerName.equalsIgnoreCase(ALL)){
-            for (Map.Entry<String,NPC> entry : npcs.entrySet()){
-                NPC npc = entry.getValue();
+        if (playerName.equalsIgnoreCase(ALL)) {
+            if (npcs.isEmpty()) {
+                sender.sendMessage("There are no agents to destroy.");
+                return true;
+            }
+
+            for (NPC npc : new ArrayList<>(npcs.values())) {
+                if (npc == null) continue;
+
+                if (npc.isSpawned()) {
+                    npc.despawn();
+                }
                 npc.destroy();
             }
+
             plugin.removeAgents();
-            sender.sendMessage("All agents were destroyed");
-        } else {
-            if(Bukkit.getPlayer(playerName) != null){
-                NPC npc = npcs.get(playerName);
-                if(npc != null) {
-                    npc.destroy();
-                    plugin.removeAgent(playerName);
-                    sender.sendMessage(npc.getName() + " was destroyed");
-                } else {
-                    sender.sendMessage("Player does not have an agent");
-                }
-            }
+            sender.sendMessage("All agents were destroyed.");
+            return true;
         }
 
+        // Single player destroy - we do NOT require the player to be online
+        NPC npc = npcs.get(playerName);
+
+        if (npc == null) {
+            sender.sendMessage("Player " + playerName + " does not have an agent.");
+            return true;
+        }
+
+        if (npc.isSpawned()) {
+            npc.despawn();
+        }
+
+        npc.destroy();
+        plugin.removeAgent(playerName);
+
+        sender.sendMessage(npc.getName() + " was destroyed.");
         return true;
     }
 
